@@ -15,12 +15,13 @@ $query = mysqli_query($con, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios Crud</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <div>
-        <form action="">
+    <div class="users-form">
+        <form action="controller/create.php" method="POST">
             <h1>Crear Usuario</h1>
             <input type="text" name="name" placeholder="name">
             <input type="text" name="lastname" placeholder="lastname">
@@ -32,16 +33,14 @@ $query = mysqli_query($con, $sql);
         </form>
     </div>
 
-    <div>
+    <div class="users-table">
         <h2>Usuarios Registrados</h2>
         <table>
             <thead>
                 <tr>
-                    <th>id</th>
                     <th>name</th>
                     <th>lastname</th>
                     <th>username</th>
-                    <th>password</th>
                     <th>email</th>
                     <th>acciones</th>
                 </tr>
@@ -49,16 +48,14 @@ $query = mysqli_query($con, $sql);
             <tbody>
                 <?php if (mysqli_num_rows($query) > 0): ?>
                     <?php while ($row = mysqli_fetch_array($query)): ?>
-                        <tr>
-                            <td><?= $row['idusers']; ?></td><!-- debe ser tal cual como esta en mi BD -->
+                        <!-- debe ser tal cual como esta en mi BD -->
                             <td><?= $row['name']; ?></td>
                             <td><?= $row['lastname']; ?></td>
                             <td><?= $row['username']; ?></td>
-                            <td><?= $row['password']; ?></td>
                             <td><?= $row['email']; ?></td>
                             <td>
-                                <a href="">Editar</a>
-                                <a href="">Eliminar</a>
+                                <a href="controller/update.php?idusers=<?= $row['idusers']; ?>" class="users-table--edit">Editar</a>
+                                <a href="controller/delete.php?idusers=<?= $row['idusers']; ?>" class="users-table--delete">Eliminar</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
